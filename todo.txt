@@ -1,0 +1,5 @@
+[ ] money pattern
+[ ] use real ABN AMRO lines
+[V] TransactionReader violates SRP (does line parsing and calculations, we possibly break line parsing when doing different calculations)
+	  There should be 1 reason to change a class
+[ ] refactor test data

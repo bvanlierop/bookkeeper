@@ -1,0 +1,6 @@
+C:\dev\Bookkeeper\Bookkeeper\bin\Debug\Bookkeeper.dll
+C:\dev\Bookkeeper\Bookkeeper\bin\Debug\Bookkeeper.pdb
+C:\dev\Bookkeeper\Bookkeeper\obj\Debug\Bookkeeper.csprojAssemblyReference.cache
+C:\dev\Bookkeeper\Bookkeeper\obj\Debug\Bookkeeper.csproj.CoreCompileInputs.cache
+C:\dev\Bookkeeper\Bookkeeper\obj\Debug\Bookkeeper.dll
+C:\dev\Bookkeeper\Bookkeeper\obj\Debug\Bookkeeper.pdb

@@ -1,0 +1,11 @@
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\Bookkeeper.Tests.dll
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\Bookkeeper.Tests.pdb
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\nunit.framework.dll
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\nunit.framework.xml
+C:\dev\Bookkeeper\Bookkeeper.Tests\obj\Debug\Bookkeeper.Tests.csprojAssemblyReference.cache
+C:\dev\Bookkeeper\Bookkeeper.Tests\obj\Debug\Bookkeeper.Tests.csproj.CoreCompileInputs.cache
+C:\dev\Bookkeeper\Bookkeeper.Tests\obj\Debug\Bookkeeper.Tests.csproj.CopyComplete
+C:\dev\Bookkeeper\Bookkeeper.Tests\obj\Debug\Bookkeeper.Tests.dll
+C:\dev\Bookkeeper\Bookkeeper.Tests\obj\Debug\Bookkeeper.Tests.pdb
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\Bookkeeper.dll
+C:\dev\Bookkeeper\Bookkeeper.Tests\bin\Debug\Bookkeeper.pdb
