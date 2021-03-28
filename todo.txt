@@ -5,4 +5,37 @@
 [V] introduce transaction object for storing amount
 [V] refactor test data
 [ ] parse description (for later use to categorize, e.g. groceries)
-[ ] introduce sum per categories { groceries, energy, house, insurance, car, transport, etc}
+[ ] introduce sum per categories:
+
+	INCOME CATEGORIES
+		- income (from work, bonuses, gifts, selling of stuff online, child care)
+
+	EXPENSE CATEGORIES
+		- housing (mortgage, city, energy, water, insurance, maintenance plans)
+		- finances&healthcare (banking, life insurance, dentist, health insurance)
+		- mobility (car insurance, gas, transportation)
+		- telecom (internet, cell phone subscription, hosting)
+		- groceries (supermarket, baby supplies, personal care products)
+		- subscriptions (memberships etc)
+		- in&around the house (garden, interior, DIY, apps, software, computer, electronics)
+		- luxurious items (clothing, dining, personal health, books, games, media, gifts)
+		- hobby's (hiking, biking, sports, music)
+		- travel & holidays (big holidays, weekend trips, museum, theather, etc)
+		- taxes
+
+[ ] categorize per month / year
+[ ] map expenses on description in transaction (e.g. JUMBO == supermarket/groceries)
+[ ] unknown (or new) descriptions go to "Unknown" category
+[ ] introduce subcategories (mortgage, banking, etc) in order to dive deeper in expenses
+[ ] percentage calculations (how much goes into category x?)
+
+Example overview:
+============================================================
+Financial Summary (year 2020)
+============================================================
+Month:					     January	February
+Housing					1.100,00 EUR	1.344,00 EUR
+Finances & healthcare	  443,21 EUR	1.001,33 EUR
+etc...
+============================================================ +
+TOTAL					1.543,21 EUR

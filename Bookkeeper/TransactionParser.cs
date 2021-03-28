@@ -33,9 +33,9 @@ namespace Bookkeeper
             {
                 foreach(var line in lines)
                 {
-                    var t = new Transaction {
-                        Amount = decimal.Parse(line.Split('\t')[6].Replace(",", "."))
-                    };
+                    var t = new Transaction(
+                        decimal.Parse(line.Split('\t')[6].Replace(",", ".")),
+                        line.Split('\t')[7].Trim());
                     
                     Transactions.Add(t);
                 }

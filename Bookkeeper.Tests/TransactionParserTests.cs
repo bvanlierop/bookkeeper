@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Bookkeeper.Tests
 {
@@ -18,8 +19,8 @@ namespace Bookkeeper.Tests
             [3] = Account Balance before transaction
             [4] = Account Balance after transaction
             [5] = Date transaction processed?
-            [7] = Amount
-            [8] = Descripition
+            [6] = Amount
+            [7] = Descripition
 
             Assumptions:
                 - the TAB file is syntactically correct
@@ -74,5 +75,17 @@ namespace Bookkeeper.Tests
 
             Assert.AreEqual(1, parser.Transactions.Count);
         }
+
+        [Test]
+        public void ParserParsesDescription()
+        {
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
+
+            parser.Parse();
+
+            Assert.AreEqual("ACME Company", parser.Transactions[0].Description);
+        }
+
+       
     }
 }
