@@ -20,19 +20,10 @@ namespace Bookkeeper
         private decimal CalculateSumOfAllTransactions()
         {
             decimal sum = 0.0M;
+
             foreach (var transaction in parser.Transactions)
             {
-                var transactionPieces = transaction.Split(';');
-                decimal amount = 0.0M;
-                try
-                {
-                    amount = decimal.Parse(transactionPieces[0].Replace(",", "."));
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException($"Unable to process amount.", ex);
-                }
-                sum += amount;
+                sum += transaction.Amount;
             }
 
             return sum;

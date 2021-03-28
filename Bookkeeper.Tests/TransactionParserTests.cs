@@ -12,14 +12,34 @@ namespace Bookkeeper.Tests
             Each transaction is seperated with a CRLF (\n\r)
             Within a transaction the fields are TAB seperated (in case of .tab file) '\t'
 
+            [0] = AccountNumber of exported accounts
+            [1] = Currency (EUR)
+            [2] = Date of transaction
+            [3] = Account Balance before transaction
+            [4] = Account Balance after transaction
+            [5] = Date transaction processed?
+            [7] = Amount
+            [8] = Descripition
+
             Assumptions:
                 - the TAB file is syntactically correct
                 - amounts are correct and valid (don't account for invalid transaction lines)
         */
 
-        private const string ValidTransactionLineWithCreditAmount = "17,75;Jumbo Bergeijk;PAS241";
-        private const string ValidTransactionLineWithDebitAmount = "-1,22;Jumbo Bergeijk;PAS241";
+        private const string ValidTransactionLineWithCreditAmount = "123551334	EUR	20201218	12958,40	12954,88	20201218	17,75	ACME Company";
+        private const string ValidTransactionLineWithDebitAmount  = "123551334	EUR	20201218	12958,40	12954,88	20201218	-3,52	ACME Company";
         private const string TwoValidTransactions = ValidTransactionLineWithCreditAmount + "\r\n" + ValidTransactionLineWithDebitAmount;
+
+        [Test]
+        public void ParserParsesAllTransactions()
+        {
+            var testTransactionLine = "123551334	EUR	20201218	12958,40	12954,88	20201218	-3,52	ABN AMRO Bank N.V.               Rekening                    1,94Betaalpas                   1,58                                 ";
+
+            var parser = new TransactionParser(testTransactionLine);
+            parser.Parse();
+
+            Assert.AreEqual(-3.52M, parser.Transactions[0].Amount);
+        }
 
         [Test]
         [TestCase(1, ValidTransactionLineWithCreditAmount)]
@@ -51,7 +71,7 @@ namespace Bookkeeper.Tests
 
             parser.Parse();
 
-            Assert.AreEqual(ValidTransactionLineWithCreditAmount, parser.Transactions[0]);
+            Assert.AreEqual(1, parser.Transactions.Count);
         }
     }
 }
