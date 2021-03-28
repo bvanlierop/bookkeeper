@@ -1,5 +1,8 @@
-[ ] money pattern
-[ ] use real ABN AMRO lines
+[-] money pattern
+[V] use real ABN AMRO lines
 [V] TransactionReader violates SRP (does line parsing and calculations, we possibly break line parsing when doing different calculations)
 	  There should be 1 reason to change a class
-[ ] refactor test data
+[V] introduce transaction object for storing amount
+[V] refactor test data
+[ ] parse description (for later use to categorize, e.g. groceries)
+[ ] introduce sum per categories { groceries, energy, house, insurance, car, transport, etc}

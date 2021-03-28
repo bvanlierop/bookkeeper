@@ -50,6 +50,7 @@
     <Compile Include="TransactionParserTests.cs" />
     <Compile Include="TransactionReaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionTestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
