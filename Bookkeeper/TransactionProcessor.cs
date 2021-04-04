@@ -1,10 +1,9 @@
-﻿using System;
-
-namespace Bookkeeper
+﻿namespace Bookkeeper
 {
     public class TransactionProcessor
     {
         private readonly TransactionParser parser;
+        private CategorizedResult result;
 
         public TransactionProcessor(TransactionParser parser)
         {
@@ -33,36 +32,50 @@ namespace Bookkeeper
         {
             parser.Parse();
 
-            var result = new CategorizedResult();
-
+            result = new CategorizedResult();
             foreach(var transaction in parser.Transactions)
             {
-                if(transaction.Description.ToLower().Contains("wallgreens") || 
-                    transaction.Description.ToLower().Contains("wallmart"))
-                {
-                    if(result.Categories.ContainsKey("groceries"))
-                    {
-                        result.Categories["groceries"] += transaction.Amount;
-                    }
-                    else
-                    {
-                        result.Categories.Add("groceries", transaction.Amount);
-                    }
-                }
-                else
-                {
-                    if(result.Categories.ContainsKey("unknown"))
-                    {
-                        result.Categories["unknown"] += transaction.Amount;
-                    }
-                    else
-                    {
-                        result.Categories.Add("unknown", transaction.Amount);
-                    }
-                }
+                Categorize(transaction);
             }
 
             return result;
+        }
+
+        private void Categorize(Transaction transaction)
+        {
+            if (transaction.Description.ToLower().Contains("wallgreens") ||
+                transaction.Description.ToLower().Contains("wallmart"))
+            {
+                ProcessGroceries(transaction);
+            }
+            else
+            {
+                ProcessUnknowns(transaction);
+            }
+        }
+
+        private void ProcessUnknowns(Transaction transaction)
+        {
+            if (result.Categories.ContainsKey("unknown"))
+            {
+                result.Categories["unknown"] += transaction.Amount;
+            }
+            else
+            {
+                result.Categories.Add("unknown", transaction.Amount);
+            }
+        }
+
+        private void ProcessGroceries(Transaction transaction)
+        {
+            if (result.Categories.ContainsKey("groceries"))
+            {
+                result.Categories["groceries"] += transaction.Amount;
+            }
+            else
+            {
+                result.Categories.Add("groceries", transaction.Amount);
+            }
         }
     }
 }

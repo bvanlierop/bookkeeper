@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace Bookkeeper.Tests
 {
@@ -85,7 +84,5 @@ namespace Bookkeeper.Tests
 
             Assert.AreEqual("ACME Company", parser.Transactions[0].Description);
         }
-
-       
     }
 }
