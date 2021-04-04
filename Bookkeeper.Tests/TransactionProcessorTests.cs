@@ -1,12 +1,37 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace Bookkeeper.Tests
 {
     [TestFixture]
     public class TransactionProcessorTests
     {
+        [Test]
+        public void SummizesTransactionsInGroceryCategory()
+        {
+            var expected = -123.01M;
+
+            var processor = new TransactionProcessor(
+                new TransactionParser(TransactionTestData.ValidTransactionsContainingGroceries));
+
+            CategorizedResult res = processor.SummizeCategories();
+
+            Assert.AreEqual(expected, res.Categories["groceries"]);
+        }
+
+        [Test]
+        public void SummizesUnknownTransactionsInUnknownCategory()
+        {
+            var expected = 14.23M;
+
+            var processor = new TransactionProcessor(
+                new TransactionParser(TransactionTestData.ValidTransactionsContainingGroceries));
+
+            CategorizedResult res = processor.SummizeCategories();
+
+            Assert.AreEqual(expected, res.Categories["unknown"]);
+        }
+
         [Test]
         public void CalculatesTotalAmountOfAllTransactions()
         {
@@ -21,7 +46,8 @@ namespace Bookkeeper.Tests
         [Test]
         public void ThrowsApplicationExceptionDuringTotalAmountCalculationWhenTransactionContainsInvalidAmount()
         {
-            var tp = new TransactionProcessor(new TransactionParser(TransactionTestData.InvalidTransactionLineWithInvalidAmount));
+            var tp = new TransactionProcessor(
+                new TransactionParser(TransactionTestData.InvalidTransactionLineWithInvalidAmount));
 
             _ = Assert.Throws<ApplicationException>(
                 delegate { _ = tp.GetTotalAmount(); });

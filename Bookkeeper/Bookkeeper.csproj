@@ -44,7 +44,6 @@
     <Compile Include="CategorizedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />
-    <Compile Include="TransactionCategorizer.cs" />
     <Compile Include="TransactionParser.cs" />
     <Compile Include="TransactionProcessor.cs" />
   </ItemGroup>

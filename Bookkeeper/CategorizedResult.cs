@@ -4,11 +4,11 @@ namespace Bookkeeper
 {
     public class CategorizedResult
     {
-        private string categoryName;
+        public Dictionary<string, decimal> Categories;
 
-        public CategorizedResult(string categoryName)
+        public CategorizedResult()
         {
-            this.categoryName = categoryName;
+            Categories = new Dictionary<string, decimal>();
         }
     }
 }
