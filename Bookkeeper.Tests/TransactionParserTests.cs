@@ -30,28 +30,27 @@ namespace Bookkeeper.Tests
         public void ParserParsesCreditTransaction()
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
-            parser.Parse();
+            var transactions = parser.Parse();
 
-            Assert.AreEqual(17.75M, parser.Transactions[0].Amount);
+            Assert.AreEqual(17.75M, transactions[0].Amount);
         }
 
         [Test]
         public void ParserParsesDebitTransaction()
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
-            parser.Parse();
+            var transactions = parser.Parse();
 
-            Assert.AreEqual(-3.52M, parser.Transactions[0].Amount);
+            Assert.AreEqual(-3.52M, transactions[0].Amount);
         }
 
         [Test]
         public void ParserCanParseMultipleTransactions()
         {
             var parser = new TransactionParser(TransactionTestData.TwoValidTransactions);
+            var transactions = parser.Parse();
 
-            parser.Parse();
-
-            Assert.AreEqual(2, parser.Transactions.Count);
+            Assert.AreEqual(2, transactions.Count);
         }
 
         [Test]
@@ -70,9 +69,9 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
-            parser.Parse();
+            var transactions = parser.Parse();
 
-            Assert.AreEqual(1, parser.Transactions.Count);
+            Assert.AreEqual(1, transactions.Count);
         }
 
         [Test]
@@ -80,9 +79,9 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
 
-            parser.Parse();
+            var transactions = parser.Parse();
 
-            Assert.AreEqual("ACME Company", parser.Transactions[0].Description);
+            Assert.AreEqual("ACME Company", transactions[0].Description);
         }
     }
 }

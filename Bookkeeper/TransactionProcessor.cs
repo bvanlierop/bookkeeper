@@ -1,13 +1,17 @@
-﻿namespace Bookkeeper
+﻿using System.Collections.Generic;
+
+namespace Bookkeeper
 {
     public class TransactionProcessor
     {
-        private readonly TransactionParser parser;
+        private readonly ITransactionParser parser;
+        private readonly Dictionary<string, string> categoryMap;
         private CategorizedResult result;
 
-        public TransactionProcessor(TransactionParser parser)
+        public TransactionProcessor(ITransactionParser parser, Dictionary<string, string> categoryMap)
         {
             this.parser = parser;
+            this.categoryMap = categoryMap;
         }
 
         public decimal GetTotalAmount()
@@ -20,7 +24,7 @@
         {
             decimal sum = 0.0M;
 
-            foreach (var transaction in parser.Transactions)
+            foreach (var transaction in parser.Parse())
             {
                 sum += transaction.Amount;
             }
@@ -30,10 +34,8 @@
 
         public CategorizedResult SummizeCategories()
         {
-            parser.Parse();
-
             result = new CategorizedResult();
-            foreach(var transaction in parser.Transactions)
+            foreach (var transaction in parser.Parse())
             {
                 Categorize(transaction);
             }
@@ -43,18 +45,43 @@
 
         private void Categorize(Transaction transaction)
         {
-            if (transaction.Description.ToLower().Contains("wallgreens") ||
-                transaction.Description.ToLower().Contains("wallmart"))
+            result = new CategorizedResult();
+            bool added = false;
+
+            foreach (var descriptionKeyword in categoryMap.Keys)
             {
-                ProcessGroceries(transaction);
+                var categoryName = categoryMap[descriptionKeyword];
+                if (TransactionMatchesKnownCategory(transaction, descriptionKeyword))
+                {
+                    AddToCategory(transaction, categoryName);
+                    added = true;
+                }
             }
-            else
+
+            if (!added)
             {
-                ProcessUnknowns(transaction);
+                AddToUnknownCategory(transaction);
             }
         }
 
-        private void ProcessUnknowns(Transaction transaction)
+        private static bool TransactionMatchesKnownCategory(Transaction transaction, string descriptionKeyword)
+        {
+            return transaction.Description.ToLower().Contains(descriptionKeyword);
+        }
+
+        private void AddToCategory(Transaction transaction, string categoryName)
+        {
+            if (result.Categories.ContainsKey(categoryName))
+            {
+                result.Categories[categoryName] += transaction.Amount;
+            }
+            else
+            {
+                result.Categories.Add(categoryName, transaction.Amount);
+            }
+        }
+
+        private void AddToUnknownCategory(Transaction transaction)
         {
             if (result.Categories.ContainsKey("unknown"))
             {
@@ -63,18 +90,6 @@
             else
             {
                 result.Categories.Add("unknown", transaction.Amount);
-            }
-        }
-
-        private void ProcessGroceries(Transaction transaction)
-        {
-            if (result.Categories.ContainsKey("groceries"))
-            {
-                result.Categories["groceries"] += transaction.Amount;
-            }
-            else
-            {
-                result.Categories.Add("groceries", transaction.Amount);
             }
         }
     }

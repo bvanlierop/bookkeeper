@@ -3,22 +3,19 @@ using System.Collections.Generic;
 
 namespace Bookkeeper
 {
-    public class TransactionParser
+    public class TransactionParser : ITransactionParser
     {
         private readonly string AbnAmroTabbedLineSeparator = Environment.NewLine;
         private readonly string TransactionData; 
 
-        public List<Transaction> Transactions { get; set; }
-
         public TransactionParser(string transactionData)
         {
             TransactionData = transactionData;
-            Transactions = new List<Transaction>();
         }
 
-        public void Parse()
+        public List<Transaction> Parse()
         {
-            Transactions.Clear();
+            var transactions = new List<Transaction>();
 
             if (string.IsNullOrWhiteSpace(TransactionData))
             {
@@ -37,13 +34,15 @@ namespace Bookkeeper
                         decimal.Parse(line.Split('\t')[6].Replace(",", ".")),
                         line.Split('\t')[7].Trim());
                     
-                    Transactions.Add(t);
+                    transactions.Add(t);
                 }
             }
             catch(Exception ex)
             {
                 throw new ApplicationException("Unable to process transactional data.", ex);
             }
+
+            return transactions;
         }
     }
 }
