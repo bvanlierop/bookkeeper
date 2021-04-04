@@ -46,7 +46,7 @@
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionCategorizer.cs" />
     <Compile Include="TransactionParser.cs" />
-    <Compile Include="TransactionReader.cs" />
+    <Compile Include="TransactionProcessor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

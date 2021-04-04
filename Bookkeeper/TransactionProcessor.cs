@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Bookkeeper
+﻿namespace Bookkeeper
 {
-    public class TransactionReader
+    public class TransactionProcessor
     {
         private readonly TransactionParser parser;
 
-        public TransactionReader(TransactionParser parser)
+        public TransactionProcessor(TransactionParser parser)
         {
             this.parser = parser;
         }

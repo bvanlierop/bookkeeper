@@ -7,33 +7,50 @@ namespace Bookkeeper.Tests
     public class TransactionCategorizerTests
     {
         [Test]
-        public void CategorizerCategorizesHousingRelatedTransactionBasedOnDescription()
+        public void CategorizerCategorizesTransactionDescriptionsBasedOnBucketLookup()
         {
+            var expectedGroceriesAmount = -354.21M;
+
             var fakeTransactions = new List<Transaction>
             {
-                new Transaction(-844.34M, "Mortgage Inc."), // housing
-                new Transaction(-320.01M, "Wallmart Co.")   // groceries
+                new Transaction(-844.34M, "Mortgage Inc."),
+                new Transaction(-320.01M, "Wallmart Co."),
+                new Transaction(-34.20M, "wallgreens")
             };
 
-            var categorizer = new TransactionCategorizer(fakeTransactions);
-            var result = categorizer.Categorize();
+            var buckets = new Dictionary<string, string>
+            {
+                { "wallgreens", "groceries" },
+                { "wallmart", "groceries" },
+                { "mortgage", "financial" }
+            };
 
-            Assert.IsTrue(result.Categories.ContainsKey("housing"));
+            var categorizer = new TransactionCategorizer(buckets, fakeTransactions);
+            var actual = categorizer.GetGroceriesAmount();
+
+            Assert.AreEqual(expectedGroceriesAmount, actual);
         }
 
         [Test]
-        public void CategorizerCategorizesUnknownTransactionsWhenDescriptionIsUnknown()
+        public void CategorizerCategorizesUnknownTransactionDescriptions()
         {
+            var expected = -4.00M;
+
             var fakeTransactions = new List<Transaction>
             {
-                new Transaction(-844.34M, "Mortgage Inc."), // housing
-                new Transaction(-320.01M, "Wallmart Co.")   // groceries
+                new Transaction(-34.20M, "wallgreens"),
+                new Transaction(-4.00M, "some_store")
             };
 
-            var categorizer = new TransactionCategorizer(fakeTransactions);
-            var result = categorizer.Categorize();
+            var buckets = new Dictionary<string, string>
+            {
+                { "wallgreens", "groceries" }
+            };
 
-            Assert.IsTrue(result.Categories.ContainsKey("unknown"));
+            var categorizer = new TransactionCategorizer(buckets, fakeTransactions);
+            var actual = categorizer.GetUnknownAmount();
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

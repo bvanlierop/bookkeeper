@@ -1,18 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Bookkeeper.Tests
 {
     [TestFixture]
-    public class TransactionReaderTests
+    public class TransactionProcessorTests
     {
         [Test]
         public void CalculatesTotalAmountOfAllTransactions()
         {
             decimal expectedAmount = 14.23M;
 
-            var tr = new TransactionReader(new TransactionParser(TransactionTestData.TwoValidTransactions));
-            var actual = tr.GetTotalAmount();
+            var tp = new TransactionProcessor(new TransactionParser(TransactionTestData.TwoValidTransactions));
+            var actual = tp.GetTotalAmount();
 
             Assert.AreEqual(expectedAmount, actual);
         }
@@ -20,10 +21,10 @@ namespace Bookkeeper.Tests
         [Test]
         public void ThrowsApplicationExceptionDuringTotalAmountCalculationWhenTransactionContainsInvalidAmount()
         {
-            var tr = new TransactionReader(new TransactionParser(TransactionTestData.InvalidTransactionLineWithInvalidAmount));
+            var tp = new TransactionProcessor(new TransactionParser(TransactionTestData.InvalidTransactionLineWithInvalidAmount));
 
             _ = Assert.Throws<ApplicationException>(
-                delegate { _ = tr.GetTotalAmount(); });
+                delegate { _ = tp.GetTotalAmount(); });
         }
     }
 }

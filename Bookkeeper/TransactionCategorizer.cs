@@ -1,33 +1,66 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bookkeeper
 {
     public class TransactionCategorizer
     {
-        public List<Transaction> Transactions { get; }
+        private Dictionary<string, string> buckets;
 
-        public TransactionCategorizer(List<Transaction> transactions)
+        public List<Transaction> Transactions { get; }
+        
+        public TransactionCategorizer(Dictionary<string, string> buckets, List<Transaction> transactions)
         {
+            this.buckets = buckets;
             Transactions = transactions;
         }
 
-        public CategorizedResult Categorize()
+        public decimal GetGroceriesAmount()
         {
-            var result = new CategorizedResult();
+            decimal groceriesAmount = 0.0M;
 
-            foreach(var transaction in Transactions)
+            foreach (var transaction in Transactions)
             {
-                if(transaction.Description.ToLower().Contains("mortgage"))
+                foreach (var key in buckets.Keys)
                 {
-                    result.Categories.Add("housing", transaction.Amount);
-                }
-                else
-                {
-                    result.Categories.Add("unknown", transaction.Amount);
+                    if (transaction.Description.ToLower().Contains(key))
+                    {
+                        if (buckets[key] == "groceries")
+                        {
+                            groceriesAmount += transaction.Amount;
+                        }
+                    }
                 }
             }
 
-            return result;
+            return groceriesAmount;
+        }
+
+        public decimal GetUnknownAmount()
+        {
+            decimal totalAmount = 0.0M;
+
+            foreach (var transaction in Transactions)
+            {
+                bool categoryFound = false;
+                foreach (var key in buckets.Keys)
+                {
+                    if (transaction.Description.ToLower().Contains(key))
+                    {
+                        if (buckets[key] == "groceries")
+                        {
+                            categoryFound = true;
+                        }
+                    }
+                }
+
+                if(!categoryFound)
+                {
+                    totalAmount += transaction.Amount;
+                }
+            }
+
+            return totalAmount;
         }
     }
 }

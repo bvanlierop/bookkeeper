@@ -10,6 +10,9 @@
 
         public static string TwoValidTransactions => $"{ValidTransactionLineWithCreditAmount}{AbnAmroTabFileLineSplitter}{ValidTransactionLineWithDebitAmount}";
 
-        public static readonly string InvalidTransactionLineWithInvalidAmount = "123551334	EUR	20201218	12958,40	12954,88	20201218	-x,0y	ACME Company";
+        public static string ValidTransactionsContainingGroceries => $"{ValidTransactionLineWithCreditAmount}{AbnAmroTabFileLineSplitter}{ValidTransactionLineWithDebitAmount}{AbnAmroTabFileLineSplitter}" +
+            $"123551334{AbnAmroTabFileColumnSplitter}EUR{AbnAmroTabFileColumnSplitter}20201218{AbnAmroTabFileColumnSplitter}12958,40{AbnAmroTabFileColumnSplitter}12954,88{AbnAmroTabFileColumnSplitter}20201218{AbnAmroTabFileColumnSplitter}-123.01{AbnAmroTabFileColumnSplitter}Wallmart";
+
+        public static readonly string InvalidTransactionLineWithInvalidAmount = $"123551334{AbnAmroTabFileColumnSplitter}EUR{AbnAmroTabFileColumnSplitter}20201218{AbnAmroTabFileColumnSplitter}12958,40{AbnAmroTabFileColumnSplitter}12954,88{AbnAmroTabFileColumnSplitter}20201218{AbnAmroTabFileColumnSplitter}-x,0y{AbnAmroTabFileColumnSplitter}ACME Company";
     }
 }
