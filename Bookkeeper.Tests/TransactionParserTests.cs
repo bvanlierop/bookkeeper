@@ -83,5 +83,15 @@ namespace Bookkeeper.Tests
 
             Assert.AreEqual("ACME Company", transactions[0].Description);
         }
+
+        [Test]
+        public void ParserParsesTransactionDate()
+        {
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
+
+            var transactions = parser.Parse();
+
+            Assert.AreEqual(new DateTime(2020, 12, 18), transactions[0].Date);
+        }
     }
 }

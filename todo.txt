@@ -4,8 +4,8 @@
 	  There should be 1 reason to change a class
 [V] introduce transaction object for storing amount
 [V] refactor test data
-[ ] parse description (for later use to categorize, e.g. groceries)
-[ ] introduce sum per categories:
+[V] parse description (for later use to categorize, e.g. groceries)
+[V] introduce sum per categories:
 
 	INCOME CATEGORIES
 		- income (from work, bonuses, gifts, selling of stuff online, child care)
@@ -23,7 +23,7 @@
 		- travel & holidays (big holidays, weekend trips, museum, theather, etc)
 		- taxes
 
-[ ] categorize per month / year
+[-] categorize per month / year
 [ ] map expenses on description in transaction (e.g. JUMBO == supermarket/groceries)
 [ ] unknown (or new) descriptions go to "Unknown" category
 [ ] introduce subcategories (mortgage, banking, etc) in order to dive deeper in expenses

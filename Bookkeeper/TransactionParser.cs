@@ -30,9 +30,13 @@ namespace Bookkeeper
             {
                 foreach(var line in lines)
                 {
+                    var dateString = line.Split('\t')[2].Trim();
+                    var date = new DateTime(int.Parse(dateString.Substring(0, 4)), int.Parse(dateString.Substring(4, 2)), int.Parse(dateString.Substring(6, 2)));
+
                     var t = new Transaction(
                         decimal.Parse(line.Split('\t')[6].Replace(",", ".")),
-                        line.Split('\t')[7].Trim());
+                        line.Split('\t')[7].Trim(),
+                        date);
                     
                     transactions.Add(t);
                 }
