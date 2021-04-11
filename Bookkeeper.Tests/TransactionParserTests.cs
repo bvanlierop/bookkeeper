@@ -75,6 +75,17 @@ namespace Bookkeeper.Tests
         }
 
         [Test]
+        public void ParserSkipsEmptyLine()
+        {
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount + Environment.NewLine);
+
+            var transactions = parser.Parse();
+
+            Assert.AreEqual(1, transactions.Count);
+        }
+
+
+        [Test]
         public void ParserParsesDescription()
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);

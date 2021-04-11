@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategorizedResult.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="CategoryReporter.cs" />
     <Compile Include="ITransactionParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />

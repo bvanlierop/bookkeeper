@@ -24,9 +24,10 @@
 		- taxes
 
 [-] categorize per month / year
-[ ] map expenses on description in transaction (e.g. JUMBO == supermarket/groceries)
-[ ] unknown (or new) descriptions go to "Unknown" category
-[ ] introduce subcategories (mortgage, banking, etc) in order to dive deeper in expenses
+[V] map expenses on description in transaction (e.g. JUMBO == supermarket/groceries)
+[V] unknown (or new) descriptions go to "Unknown" category
+[V] introduce subcategories (mortgage, banking, etc) in order to dive deeper in expenses
+[V] basic report with category totals
 [ ] percentage calculations (how much goes into category x?)
 
 Example overview:

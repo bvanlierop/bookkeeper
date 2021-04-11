@@ -30,6 +30,11 @@ namespace Bookkeeper
             {
                 foreach(var line in lines)
                 {
+                    if(string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+
                     var dateString = line.Split('\t')[2].Trim();
                     var date = new DateTime(int.Parse(dateString.Substring(0, 4)), int.Parse(dateString.Substring(4, 2)), int.Parse(dateString.Substring(6, 2)));
 

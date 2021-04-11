@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryReporterTests.cs" />
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="TransactionParserTests.cs" />
     <Compile Include="TransactionProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestFiles\THREE_MONTH_ABN_AMRO_EXPORT_FILE.TAB">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TINY_ABN_AMRO_EXPORT_FILE.TAB">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bookkeeper\Bookkeeper.csproj">
@@ -74,6 +82,7 @@
       <Name>Bookkeeper</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

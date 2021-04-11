@@ -35,62 +35,44 @@ namespace Bookkeeper
         public CategorizedResult SummizeCategories()
         {
             result = new CategorizedResult();
-            foreach (var transaction in parser.Parse())
+
+            var transactions = parser.Parse();
+            foreach (var transaction in transactions)
             {
-                Categorize(transaction);
+                var category = DetermineCategory(transaction.Description);
+                if(!result.Categories.ContainsKey(category.Name))
+                {
+                    result.Categories.Add(category.Name, transaction.Amount);
+                }
+                else
+                {
+                    result.Categories[category.Name] += transaction.Amount;
+                }
             }
 
             return result;
         }
 
-        private void Categorize(Transaction transaction)
+        private Category DetermineCategory(string description)
         {
-            result = new CategorizedResult();
-            bool added = false;
+            var category = new Category("unknown");
 
             foreach (var descriptionKeyword in categoryMap.Keys)
             {
                 var categoryName = categoryMap[descriptionKeyword];
-                if (TransactionMatchesKnownCategory(transaction, descriptionKeyword))
+                if (TransactionMatchesKnownCategory(description, descriptionKeyword))
                 {
-                    AddToCategory(transaction, categoryName);
-                    added = true;
+                    category = new Category(categoryName);
+                    break;
                 }
             }
 
-            if (!added)
-            {
-                AddToUnknownCategory(transaction);
-            }
+            return category;
         }
 
-        private static bool TransactionMatchesKnownCategory(Transaction transaction, string descriptionKeyword)
+        private static bool TransactionMatchesKnownCategory(string description, string descriptionKeyword)
         {
-            return transaction.Description.ToLower().Contains(descriptionKeyword);
-        }
-
-        private void AddToCategory(Transaction transaction, string categoryName)
-        {
-            if (result.Categories.ContainsKey(categoryName))
-            {
-                result.Categories[categoryName] += transaction.Amount;
-            }
-            else
-            {
-                result.Categories.Add(categoryName, transaction.Amount);
-            }
-        }
-
-        private void AddToUnknownCategory(Transaction transaction)
-        {
-            if (result.Categories.ContainsKey("unknown"))
-            {
-                result.Categories["unknown"] += transaction.Amount;
-            }
-            else
-            {
-                result.Categories.Add("unknown", transaction.Amount);
-            }
+            return description.ToLower().Contains(descriptionKeyword);
         }
     }
 }
