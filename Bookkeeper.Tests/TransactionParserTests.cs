@@ -29,10 +29,10 @@ namespace Bookkeeper.Tests
         [Test]
         public void ParserParsesCreditTransaction()
         {
-            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
             var transactions = parser.Parse();
 
-            Assert.AreEqual(17.75M, transactions[0].Amount);
+            Assert.AreEqual(-3.52M, transactions[0].Amount);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Bookkeeper.Tests
         [Test]
         public void ParserParsesDescription()
         {
-            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
             var transactions = parser.Parse();
 
@@ -98,7 +98,7 @@ namespace Bookkeeper.Tests
         [Test]
         public void ParserParsesTransactionDate()
         {
-            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithCreditAmount);
+            var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
             var transactions = parser.Parse();
 

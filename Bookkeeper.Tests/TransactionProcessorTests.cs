@@ -56,7 +56,7 @@ namespace Bookkeeper.Tests
         [Test]
         public void SummizesUnknownTransactionsInUnknownCategory()
         {
-            var expected = -108.78M;
+            var expected = -130.05M;
             
             var processor = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.ValidTransactionsContainingGroceries),
@@ -70,7 +70,7 @@ namespace Bookkeeper.Tests
         [Test]
         public void CalculatesTotalAmountOfAllTransactions()
         {
-            decimal expectedAmount = 14.23M;
+            decimal expectedAmount = -7.04M;
 
             var tp = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.TwoValidTransactions),

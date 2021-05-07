@@ -31,7 +31,7 @@ namespace Bookkeeper.Tests
             var report = cr.CreateReport();
 
             // TODO: split up expenses with income
-            StringAssert.Contains("unknown: 1188.22 EUR", report);
+            StringAssert.Contains("unknown: 2473.66 EUR", report);
         }
     }
 }
