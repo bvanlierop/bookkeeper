@@ -11,14 +11,29 @@ namespace Bookkeeper.Tests
         [Test]
         public void ReportAmountPerCategory()
         {
-            var categoryMap = new Dictionary<string, string>()
-            {
-                { "wallgreens", "groceries" },
-                { "wallmart", "groceries" },
-                { "mortgage", "finances" },
-                { "visa", "finances"}
-            };
-
+            var categoryMapJsonString =
+               "{" +
+                   "\"Categories\": " +
+                   "[ " +
+                       "{" +
+                           "\"Keyword\": \"wallgreens\"," +
+                           "\"CategoryName\": \"groceries\" " +
+                       "}," +
+                       "{" +
+                           "\"Keyword\": \"wallmart\"," +
+                           "\"CategoryName\": \"groceries\" " +
+                       "}," +
+                       "{" +
+                           "\"Keyword\": \"visa\"," +
+                           "\"CategoryName\": \"finances\" " +
+                       "}," +
+                       "{" +
+                           "\"Keyword\": \"mortgage\"," +
+                           "\"CategoryName\": \"finances\" " +
+                       "}" +
+                   "]" +
+               "}";
+            
             var transactionParserMock = new Mock<ITransactionParser>();
             transactionParserMock.Setup(x => x.Parse()).Returns(new List<Transaction>
             {
@@ -27,7 +42,7 @@ namespace Bookkeeper.Tests
                 new Transaction(-30.00M, "VISA", new DateTime(2020, 1, 1)),
             });
 
-            var processor = new TransactionProcessor(transactionParserMock.Object, categoryMap);
+            var processor = new TransactionProcessor(transactionParserMock.Object, categoryMapJsonString);
             var cr = new CategoryReporter(processor);
 
             var report = cr.CreateReport();

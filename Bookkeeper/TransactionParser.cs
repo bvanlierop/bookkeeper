@@ -6,7 +6,7 @@ namespace Bookkeeper
     public class TransactionParser : ITransactionParser
     {
         private readonly string AbnAmroTabbedLineSeparator = Environment.NewLine;
-        private readonly string TransactionData; 
+        private readonly string TransactionData;
 
         public TransactionParser(string transactionData)
         {

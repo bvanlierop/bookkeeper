@@ -8,20 +8,32 @@ namespace Bookkeeper.Tests
     [TestFixture]
     public class TransactionProcessorTests
     {
+        private string categoryMapJsonString =
+           "{" +
+               "\"Categories\": " +
+               "[ " +
+                   "{" +
+                       "\"Keyword\": \"wallgreens\"," +
+                       "\"CategoryName\": \"groceries\" " +
+                   "}," +
+                   "{" +
+                       "\"Keyword\": \"wallmart\"," +
+                       "\"CategoryName\": \"groceries\" " +
+                   "}," +
+                   "{" +
+                       "\"Keyword\": \"mortgage\"," +
+                       "\"CategoryName\": \"finances\" " +
+                   "}" +
+               "]" +
+           "}";
+
         [Test]
         public void SummizesTransactionsInGroceryCategory()
         {
             var expected = -123.01M;
-
-            var categoryMap = new Dictionary<string, string>()
-            {
-                { "wallgreens", "groceries" },
-                { "wallmart", "groceries" },
-                { "mortgage", "finances" }
-            };
             var processor = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.ValidTransactionsContainingGroceries), 
-                categoryMap);
+                categoryMapJsonString);
 
             CategorizedResult res = processor.SummizeCategories();
 
@@ -32,14 +44,6 @@ namespace Bookkeeper.Tests
         public void SummizesTransactionsBasedOnParameterizedCategories()
         {
             var expectedFinancesAmount = -10.00M;
-
-            var categoryMap = new Dictionary<string, string>()
-            {
-                { "wallgreens", "groceries" },
-                { "wallmart", "groceries" },
-                { "mortgage", "finances" }
-            };
-
             var transactionParserMock = new Mock<ITransactionParser>();
             transactionParserMock.Setup(x => x.Parse()).Returns(new List<Transaction>
             {
@@ -47,7 +51,7 @@ namespace Bookkeeper.Tests
                 new Transaction(-10.00M, "Mortgage Inc.", new DateTime(2020, 1, 1)),
             });
 
-            var processor = new TransactionProcessor(transactionParserMock.Object, categoryMap);
+            var processor = new TransactionProcessor(transactionParserMock.Object, categoryMapJsonString);
             CategorizedResult res = processor.SummizeCategories();
 
             Assert.AreEqual(expectedFinancesAmount, res.Categories["finances"]);
@@ -60,7 +64,7 @@ namespace Bookkeeper.Tests
             
             var processor = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.ValidTransactionsContainingGroceries),
-                new Dictionary<string, string>());
+                string.Empty);
 
             CategorizedResult res = processor.SummizeCategories();
 
@@ -74,7 +78,7 @@ namespace Bookkeeper.Tests
 
             var tp = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.TwoValidTransactions),
-                new Dictionary<string, string>());
+                string.Empty);
             var actual = tp.GetTotalAmount();
 
             Assert.AreEqual(expectedAmount, actual);
@@ -85,7 +89,7 @@ namespace Bookkeeper.Tests
         {
             var tp = new TransactionProcessor(
                 new TransactionParser(TransactionTestData.InvalidTransactionLineWithInvalidAmount),
-                new Dictionary<string, string>());
+                string.Empty);
 
             _ = Assert.Throws<ApplicationException>(
                 delegate { _ = tp.GetTotalAmount(); });
