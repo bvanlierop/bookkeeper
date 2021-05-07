@@ -72,7 +72,7 @@ namespace Bookkeeper
 
         private static bool TransactionMatchesKnownCategory(string description, string descriptionKeyword)
         {
-            return description.ToLower().Contains(descriptionKeyword);
+            return description.ToLower().Contains(descriptionKeyword.ToLower());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -19,10 +18,11 @@ namespace Bookkeeper.Tests
             // TODO: use input file as category map instead of this hardcoded list
             var categoryMap = new Dictionary<string, string>()
             {
-                { "wallgreens", "groceries" },
-                { "wallmart", "groceries" },
-                { "mortgage", "finances" },
-                { "visa", "finances"}
+                { "Cars are Us", "car" },
+                { "Zorgverzekeringen", "healthcare" },
+                { "Contactalook", "healthcare" },
+                { "PHONE COMPANY", "phone" },
+                { "Broker Corp.", "banking"}
             };
 
             var parser = new TransactionParser(inputFileData);
