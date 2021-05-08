@@ -1,0 +1,16 @@
+{
+	"Categories": [
+		{
+			"Keyword": "Cars are Us",
+			"CategoryName": "car"
+		},
+		{
+			"Keyword": "Zorgverzekeringen",
+			"CategoryName": "healthcare"
+		},
+		{
+			"Keyword": "Contactalook",
+			"CategoryName": "healthcare"
+		}
+	]
+}
