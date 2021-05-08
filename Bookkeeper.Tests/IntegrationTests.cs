@@ -8,11 +8,13 @@ namespace Bookkeeper.Tests
     [Category("Integration")]
     class IntegrationTests
     {
+        private readonly string LocationOfTestFiles = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
+
         [Test]
         public void ShouldProcessOfficialAbnAmroBankExportFile()
         {
-            var inputFileData = File.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\TestFiles\THREE_MONTH_ABN_AMRO_EXPORT_FILE.TAB");
-            var inputCategoryMapJson = File.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\TestFiles\TestCategories.json");
+            var inputFileData = File.ReadAllText(Path.Combine(LocationOfTestFiles, "THREE_MONTH_ABN_AMRO_EXPORT_FILE.TAB"));
+            var inputCategoryMapJson = File.ReadAllText(Path.Combine(LocationOfTestFiles, "TestCategories.json"));
 
             var parser = new TransactionParser(inputFileData);
             var processor = new TransactionProcessor(parser, inputCategoryMapJson);
