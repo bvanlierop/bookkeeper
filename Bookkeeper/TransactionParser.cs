@@ -5,7 +5,7 @@ namespace Bookkeeper
 {
     public class TransactionParser : ITransactionParser
     {
-        private readonly string AbnAmroTabbedLineSeparator = Environment.NewLine;
+        private readonly string AbnAmroTabbedLineSeparator = "\n"; //Environment.NewLine;
         private readonly string TransactionData;
 
         public TransactionParser(string transactionData)
@@ -38,12 +38,15 @@ namespace Bookkeeper
                     var dateString = line.Split('\t')[2].Trim();
                     var date = new DateTime(int.Parse(dateString.Substring(0, 4)), int.Parse(dateString.Substring(4, 2)), int.Parse(dateString.Substring(6, 2)));
 
-                    var t = new Transaction(
-                        decimal.Parse(line.Split('\t')[6].Replace(",", ".")),
-                        line.Split('\t')[7].Trim(),
-                        date);
-                    
-                    transactions.Add(t);
+                    var amount = decimal.Parse(line.Split('\t')[6].Replace(",", "."));
+                    if (amount < 0) // Only process expenses for now
+                    {
+                        var t = new Transaction(amount,
+                            line.Split('\t')[7].Trim(),
+                            date);
+
+                        transactions.Add(t);
+                    }
                 }
             }
             catch(Exception ex)

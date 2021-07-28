@@ -13,7 +13,7 @@ namespace Bookkeeper.Tests
         [Test]
         public void ShouldProcessOfficialAbnAmroBankExportFile()
         {
-            var inputFileData = File.ReadAllText(Path.Combine(LocationOfTestFiles, "THREE_MONTH_ABN_AMRO_EXPORT_FILE.TAB"));
+            var inputFileData = File.ReadAllText(Path.Combine(LocationOfTestFiles, "SMALL_ABN_AMRO_EXPORT_FILE.TAB"));
             var inputCategoryMapJson = File.ReadAllText(Path.Combine(LocationOfTestFiles, "TestCategories.json"));
 
             var parser = new TransactionParser(inputFileData);
@@ -22,7 +22,9 @@ namespace Bookkeeper.Tests
 
             var report = cr.CreateReport();
 
-            StringAssert.Contains("unknown: 2453.43 EUR", report);
+            StringAssert.Contains("car: -350.12 EUR", report);
+            StringAssert.Contains("healthcare: -1259.56 EUR", report);
+            StringAssert.Contains("unknown: -1.23 EUR", report);
         }
     }
 }

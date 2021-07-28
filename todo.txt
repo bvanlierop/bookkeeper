@@ -29,6 +29,7 @@
 [V] introduce subcategories (mortgage, banking, etc) in order to dive deeper in expenses
 [V] basic report with category totals
 [ ] percentage calculations (how much goes into category x?)
+[ ] Work with Quarters (Q1, Q2, etc)
 
 Example overview:
 ============================================================

@@ -72,6 +72,9 @@
     <None Include="TestFiles\TestCategories.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\SMALL_ABN_AMRO_EXPORT_FILE.TAB">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\THREE_MONTH_ABN_AMRO_EXPORT_FILE.TAB">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
