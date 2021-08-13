@@ -1,26 +1,54 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bookkeeper
 {
     public class CategoryReporter
     {
-        private TransactionProcessor processor;
+        private Hashtable categorizedResult;
 
-        public CategoryReporter(TransactionProcessor processor)
+        public CategoryReporter(Hashtable categorizedResult)
         {
-            this.processor = processor;
+            this.categorizedResult = categorizedResult;
         }
 
         public string CreateReport()
         {
             string reportString = "IMPORT REPORT" + Environment.NewLine;
 
-            CategorizedResult res = processor.SummizeCategories();
-            foreach(var category in res.Categories)
+            var categoriesWithAmounts = new Dictionary<string, decimal>();
+            var unknowns = new List<Transaction>();
+
+            foreach(DictionaryEntry entry in categorizedResult)
             {
-                string categoryName = category.Key;
-                decimal amount = category.Value;
-                reportString += $"{categoryName}: {amount} EUR" + Environment.NewLine; 
+                var transaction = (Transaction)entry.Key;
+                var category = (Category)entry.Value;
+
+                if(category.Name.Equals("unknown"))
+                {
+                    unknowns.Add(transaction);
+                }
+
+                if(!categoriesWithAmounts.ContainsKey(category.Name))
+                {
+                    categoriesWithAmounts.Add(category.Name, transaction.Amount);
+                }
+                else 
+                {
+                    categoriesWithAmounts[category.Name] += transaction.Amount;
+                }
+
+            }
+
+            foreach(var entry in categoriesWithAmounts)
+            {
+                reportString += $"{entry.Key}: {entry.Value} EUR" + Environment.NewLine; 
+            }
+
+            foreach(var unknown in unknowns)
+            {
+                reportString += $"[UNKNOWN] {unknown.Amount} EUR @ {unknown.Date} - {unknown.Description}" + Environment.NewLine;
             }
 
             return reportString; 

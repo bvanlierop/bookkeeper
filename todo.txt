@@ -1,3 +1,5 @@
+[ ] fix summizer
+[ ] fill in realistic JSON category map for three month test file
 [-] money pattern
 [V] use real ABN AMRO lines
 [V] TransactionReader violates SRP (does line parsing and calculations, we possibly break line parsing when doing different calculations)

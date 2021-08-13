@@ -4,39 +4,20 @@ using System.IO;
 
 namespace Bookkeeper
 {
-    public class TransactionProcessor
+    public class TransactionCategorizer
     {
         private readonly ITransactionParser parser;
         private readonly string categoryMapJsonString;
         private CategoryEntries categoryEntries;
 
-        public TransactionProcessor(ITransactionParser parser, string categoryMapJsonString)
+        public TransactionCategorizer(ITransactionParser parser, string categoryMapJsonString)
         {
             this.parser = parser;
             this.categoryMapJsonString = categoryMapJsonString;
         }
 
-        public decimal GetTotalAmount()
+        public Hashtable CategorizeTransactions()
         {
-            parser.Parse();
-            return CalculateSumOfAllTransactions();
-        }
-
-        private decimal CalculateSumOfAllTransactions()
-        {
-            decimal sum = 0.0M;
-
-            foreach (var transaction in parser.Parse())
-            {
-                sum += transaction.Amount;
-            }
-
-            return sum;
-        }
-
-        public CategorizedResult SummizeCategories()
-        {
-            var result = new CategorizedResult();
             ReadCategoryEntries();
             var transactionAndCategoryTable = new Hashtable();
             var transactions = parser.Parse();
@@ -46,8 +27,7 @@ namespace Bookkeeper
                 transactionAndCategoryTable.Add(transaction, category);
             }
 
-            result.CategorizedTransactions = transactionAndCategoryTable;
-            return result;
+            return transactionAndCategoryTable;
         }
 
         private void ReadCategoryEntries()
@@ -60,7 +40,7 @@ namespace Bookkeeper
                 {
                     var jsonSerializer = new JsonSerializer();
                     categoryEntries = jsonSerializer.Deserialize<CategoryEntries>(jsonReader);
-                    if(categoryEntries == null)
+                    if (categoryEntries == null)
                     {
                         // when no json data is provided
                         categoryEntries = new CategoryEntries();
