@@ -1,5 +1,6 @@
+[ ] Transactions from and to certain 'favorite' accounts take preceeding over description matching (e.g. JOE with account IBAN 123456789 is mostly considered recreational)
 [ ] fix summizer
-[ ] fill in realistic JSON category map for three month test file
+[x] fill in realistic JSON category map for three month test file
 [-] money pattern
 [V] use real ABN AMRO lines
 [V] TransactionReader violates SRP (does line parsing and calculations, we possibly break line parsing when doing different calculations)
