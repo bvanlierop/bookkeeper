@@ -20,7 +20,7 @@ namespace Bookkeeper
         {
             ReadCategoryEntries();
             var transactionAndCategoryTable = new Hashtable();
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
             foreach (var transaction in transactions)
             {
                 var category = DetermineCategory(transaction.Description);
@@ -57,7 +57,7 @@ namespace Bookkeeper
             {
                 if (TransactionMatchesKnownCategory(description, categoryEntry.Keyword))
                 {
-                    category = new Category(categoryEntry.CategoryName);
+                    category = new Category(categoryEntry.ExpenseCategory.ToString());
                     break;
                 }
             }

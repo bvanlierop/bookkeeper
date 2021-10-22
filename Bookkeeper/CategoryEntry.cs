@@ -2,12 +2,15 @@
 {
     public class CategoryEntry
     {
-        public string CategoryName;
+        private MainExpenseCategory expenseCategory;
+
         public string Keyword;
 
-        public CategoryEntry(string categoryName, string keyword)
+        public MainExpenseCategory ExpenseCategory { get => expenseCategory; set => expenseCategory = value; }
+
+        public CategoryEntry(MainExpenseCategory category, string keyword)
         {
-            CategoryName = categoryName;
+            ExpenseCategory = category;
             Keyword = keyword;
         }
     }

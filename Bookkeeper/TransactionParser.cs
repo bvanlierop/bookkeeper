@@ -13,7 +13,7 @@ namespace Bookkeeper
             TransactionData = transactionData;
         }
 
-        public List<Transaction> Parse()
+        public List<Transaction> ParseExpenses()
         {
             var transactions = new List<Transaction>();
 

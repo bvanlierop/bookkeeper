@@ -43,7 +43,7 @@ namespace Bookkeeper.Tests
         {
             var expectedFinancesAmount = -10.00M;
             var transactionParserMock = new Mock<ITransactionParser>();
-            transactionParserMock.Setup(x => x.Parse()).Returns(new List<Transaction>
+            transactionParserMock.Setup(x => x.ParseExpenses()).Returns(new List<Transaction>
             {
                 new Transaction(-10.00M, "xyz", new DateTime(2020, 1, 1)),
                 new Transaction(-10.00M, "Mortgage Inc.", new DateTime(2020, 1, 1)),

@@ -4,6 +4,6 @@ namespace Bookkeeper
 {
     public interface ITransactionParser
     {
-        List<Transaction> Parse();
+        List<Transaction> ParseExpenses();
     }
 }

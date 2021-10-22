@@ -30,7 +30,7 @@ namespace Bookkeeper.Tests
         public void ParserParsesCreditTransaction()
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(-3.52M, transactions[0].Amount);
         }
@@ -39,7 +39,7 @@ namespace Bookkeeper.Tests
         public void ParserParsesDebitTransaction()
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(-3.52M, transactions[0].Amount);
         }
@@ -48,7 +48,7 @@ namespace Bookkeeper.Tests
         public void ParserCanParseMultipleTransactions()
         {
             var parser = new TransactionParser(TransactionTestData.TwoValidTransactions);
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(2, transactions.Count);
         }
@@ -61,7 +61,7 @@ namespace Bookkeeper.Tests
             var parser = new TransactionParser(invalidInputTransaction);
 
             _ = Assert.Throws<ArgumentException>(
-                delegate { parser.Parse(); });
+                delegate { parser.ParseExpenses(); });
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(1, transactions.Count);
         }
@@ -79,7 +79,7 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount + "\n");
 
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(1, transactions.Count);
         }
@@ -90,7 +90,7 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual("ACME Company", transactions[0].Description);
         }
@@ -100,7 +100,7 @@ namespace Bookkeeper.Tests
         {
             var parser = new TransactionParser(TransactionTestData.ValidTransactionLineWithDebitAmount);
 
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
 
             Assert.AreEqual(new DateTime(2020, 12, 18), transactions[0].Date);
         }

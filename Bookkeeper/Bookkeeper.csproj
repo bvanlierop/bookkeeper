@@ -50,6 +50,7 @@
     <Compile Include="CategoryEntry.cs" />
     <Compile Include="CategoryReporter.cs" />
     <Compile Include="ITransactionParser.cs" />
+    <Compile Include="MainExpenseCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionCategorizer.cs" />

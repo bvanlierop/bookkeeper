@@ -35,7 +35,7 @@ namespace Bookkeeper.Tests
                "}";
             
             var transactionParserMock = new Mock<ITransactionParser>();
-            transactionParserMock.Setup(x => x.Parse()).Returns(new List<Transaction>
+            transactionParserMock.Setup(x => x.ParseExpenses()).Returns(new List<Transaction>
             {
                 new Transaction(-10.00M, "xyz", new DateTime(2020, 1, 1)),
                 new Transaction(-10.00M, "mortgage inc.", new DateTime(2020, 1, 1)),

@@ -18,7 +18,7 @@ namespace Bookkeeper
 
         public decimal GetTotalAmount()
         {
-            parser.Parse();
+            parser.ParseExpenses();
             return CalculateSumOfAllTransactions();
         }
 
@@ -26,7 +26,7 @@ namespace Bookkeeper
         {
             decimal sum = 0.0M;
 
-            foreach (var transaction in parser.Parse())
+            foreach (var transaction in parser.ParseExpenses())
             {
                 sum += transaction.Amount;
             }
@@ -39,7 +39,7 @@ namespace Bookkeeper
             var result = new CategorizedResult();
             ReadCategoryEntries();
             var transactionAndCategoryTable = new Hashtable();
-            var transactions = parser.Parse();
+            var transactions = parser.ParseExpenses();
             foreach (var transaction in transactions)
             {
                 var category = DetermineCategory(transaction.Description);
@@ -77,7 +77,7 @@ namespace Bookkeeper
             {
                 if (TransactionMatchesKnownCategory(description, categoryEntry.Keyword))
                 {
-                    category = new Category(categoryEntry.CategoryName);
+                    category = new Category(categoryEntry.ExpenseCategory.ToString());
                     break;
                 }
             }
