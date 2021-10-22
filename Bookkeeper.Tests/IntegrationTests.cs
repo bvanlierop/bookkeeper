@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -67,24 +66,31 @@ namespace Bookkeeper.Tests
             var inputFileData = File.ReadAllText(@"C:\dev\export_of_2020.TAB");
             var parser = new TransactionParser(inputFileData);
             var parsedResult = parser.ParseExpenses();
-            var housing = new MainExpenseCategory("Housing"); // future introduce: taxes, food, insurance, health, entertainment
-            //var morgage = new CategoryEntry(housing, "Termijnbetaling hy potheek PERIODE");
-
-            foreach (var transaction in parsedResult)
-            {
-                if (transaction.Description.Contains("Termijnbetaling hy potheek PERIODE") ||
-                    transaction.Description.Contains("BRABANT WATER NV") ||
-                    transaction.Description.Contains("OXXIO NEDERLAND BV") ||
-                    transaction.Description.Contains("Gemeente Bergeijk") ||
-                    transaction.Description.Contains("ASR SCHADEVERZEKERING") ||
-                    transaction.Description.Contains("Waterschap De Dommel")
-                    )
-                {
-                    housing.TotalAmount += transaction.Amount;
-                }
-            }
+            var housing = new MainExpenseCategory("Housing", new string[] {
+                "Termijnbetaling hy potheek PERIODE",
+                "Reden incasso:", // Gemeente bergeijk afval en OZB
+                "OXXIO NEDERLAND BV         Machtiging:", // OXXIO ENERGIE  
+                "ASR SCHADEVERZEKERING      Machtiging:", // Only ASR can also be credit nota when receiving damage payout
+                "BRABANT WATER NV",
+                "Waterschap De Dommel"}); // future introduce: taxes, food, insurance, health, entertainment
+                                                              //var morgage = new CategoryEntry(housing, "Termijnbetaling hy potheek PERIODE");
+            SummizeExpensesFor(parsedResult, housing);
 
             Assert.IsTrue(housing.TotalAmount < 0.0M);
+        }
+
+        private static void SummizeExpensesFor(List<Transaction> parsedResult, MainExpenseCategory expenseCategory)
+        {
+            foreach (var transaction in parsedResult)
+            {
+                foreach(var keyword in expenseCategory.DescriptionKeywords)
+                {
+                    if(transaction.Description.Contains(keyword))
+                    {
+                        expenseCategory.TotalAmount += transaction.Amount;
+                    }
+                }
+            }
         }
     }
 }

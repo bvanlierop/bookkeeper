@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="CategoryReporterTests.cs" />
     <Compile Include="IntegrationTests.cs" />
-    <Compile Include="SubExpenseCategory.cs" />
     <Compile Include="TransactionParserTests.cs" />
     <Compile Include="TransactionProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
